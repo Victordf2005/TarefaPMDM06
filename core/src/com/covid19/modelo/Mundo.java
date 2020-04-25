@@ -1,5 +1,6 @@
 package com.covid19.modelo;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Random;
@@ -20,7 +21,7 @@ public class Mundo {
 
     public Mundo(int vidas) {
 
-        this.numVidas = vidas;
+        numVidas = vidas;
         resultado = "";
         desinfectador = new Desinfectador();
         iniciarXogo();
@@ -31,7 +32,7 @@ public class Mundo {
 
         pausa = false;
         iniciarVirus(3);
-        desinfectador.setPosicion(POSINICIAL);
+        desinfectador.setPosicion(new Vector2 (POSINICIAL));
 
     }
 
@@ -82,9 +83,9 @@ public class Mundo {
     public String getResultado() { return this.resultado;}
 
     public void pausarXogo(Boolean sinon) {
-        this.pausa = sinon;
+        pausa = sinon;
     }
 
-    public Boolean isPausado() {return this.pausa;}
+    public Boolean isPausado() {return pausa;}
 
 }
