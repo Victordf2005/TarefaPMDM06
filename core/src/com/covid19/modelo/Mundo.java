@@ -60,7 +60,7 @@ public class Mundo {
                 intentos++;
             }
 
-            virus[x][y] = 1;
+            virus[x][y] = 1;    // posicionamos virus inmaduro
 
         }
 
