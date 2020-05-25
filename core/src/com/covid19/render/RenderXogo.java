@@ -11,18 +11,23 @@ import com.covid19.modelo.Mundo;
 
 public class RenderXogo  {
 
+    private Mundo meuMundo;
     private OrthographicCamera camara2D;
     private SpriteBatch spriteBatch;
 
     private BitmapFont vidasTexto;
+    private BitmapFont porcentaxeInfeccion;
     private BitmapFont pausado;
 
     public RenderXogo(Mundo meuMundo) {
+
+        this.meuMundo = meuMundo;
 
         camara2D = new OrthographicCamera();
         spriteBatch = new SpriteBatch();
 
         vidasTexto = new BitmapFont();
+        porcentaxeInfeccion = new BitmapFont();
         pausado = new BitmapFont();
 
     }
@@ -44,6 +49,19 @@ public class RenderXogo  {
             for (int i=0; i<Mundo.getVidas();i++) {
                 spriteBatch.draw(AssetsXogo.imaxeDesinfectador, 100+i*26, 930, 25, 25);
             }
+
+            // Informar da superficie infectada con distintas cores
+            // segundo a porcentaxe de infección
+            if (meuMundo.getSuperficieInfectada() <= 30) {
+                porcentaxeInfeccion.setColor(Color.GREEN);
+            } else if (meuMundo.getSuperficieInfectada() >= 60) {
+                porcentaxeInfeccion.setColor(Color.RED);
+            } else {
+                porcentaxeInfeccion.setColor(Color.YELLOW);
+            }
+
+            porcentaxeInfeccion.getData().setScale(1.5f);
+            porcentaxeInfeccion.draw(spriteBatch, meuMundo.getSuperficieInfectada() + "% infectado", 250,955);
 
             // Debuxar virus
             debuxarVirus();

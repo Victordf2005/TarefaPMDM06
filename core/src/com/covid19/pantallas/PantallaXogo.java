@@ -19,7 +19,7 @@ public class PantallaXogo implements Screen, InputProcessor {
 
     public PantallaXogo(Covid19 _xogo) {
 
-        // Inicamos o xogo con 3 vidas
+        // Iniciamos o xogo con 3 vidas
         meuMundo = new Mundo(3);
 
         this.xogo = _xogo;
@@ -86,6 +86,28 @@ public class PantallaXogo implements Screen, InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
+        // desinfectamos a celda á que se moveu
+        // aínda que nos se movera, por estar en calquera dos límites, desinfectamos a celda actual
+        switch (keycode) {
+            case 19:    //Arriba
+                Mundo.desinfectador.mover('A');
+                meuMundo.desinfectar();
+                break;
+            case 20:    //Abaixo
+                Mundo.desinfectador.mover('B');
+                meuMundo.desinfectar();
+                break;
+            case 21:    //Esquerda
+                Mundo.desinfectador.mover('E');
+                meuMundo.desinfectar();
+                break;
+            case 22:    //Dereita
+                Mundo.desinfectador.mover('D');
+                meuMundo.desinfectar();
+                break;
+            case 44:    //Pausa
+                pausarSiNon();
+        }
         return false;
     }
 
@@ -113,23 +135,29 @@ public class PantallaXogo implements Screen, InputProcessor {
 
         } else if (posTocado.x > 0 && posTocado.x < 560 && posTocado.y > 130 && posTocado.y < 960) {
 
-            // pulsou na zona de xogo.
-            // basculamos entre pausado e non pausado
-            meuMundo.pausarXogo(!meuMundo.isPausado());
-
-            if (meuMundo.isPausado()) {
-
-                // se o xogo resulta pausado, paramos a infección
-                controladorXogo.pararInfeccion();
-            } else {
-
-                // se o xogo se volve a activar, iniciamos a infección
-                controladorXogo.iniciarInfeccion(1f);
-            }
+            pausarSiNon();
         }
 
         return false;
     }
+
+    private void pausarSiNon() {
+
+        // pulsou na zona de xogo.
+        // basculamos entre pausado e non pausado
+        meuMundo.pausarXogo(!meuMundo.isPausado());
+
+        if (meuMundo.isPausado()) {
+
+            // se o xogo resulta pausado, paramos a infección
+            controladorXogo.pararInfeccion();
+        } else {
+
+            // se o xogo se volve a activar, iniciamos a infección
+            controladorXogo.iniciarInfeccion(1f);
+        }
+    }
+
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {

@@ -19,6 +19,8 @@ public class Mundo {
     public static Boolean pausa;
     private static final Vector2 POSINICIAL = new Vector2(7,0); // posición inicial do desinfectador
 
+    private float superficieInfectada;
+
     public Mundo(int vidas) {
 
         numVidas = vidas;
@@ -27,6 +29,12 @@ public class Mundo {
         iniciarXogo();
 
     }
+
+    public void setSuperficieInfectada(float superf){
+            this.superficieInfectada = superf;
+    }
+
+    public float getSuperficieInfectada() {return this.superficieInfectada;}
 
     public void iniciarXogo() {
 

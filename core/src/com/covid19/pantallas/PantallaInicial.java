@@ -53,11 +53,13 @@ public class PantallaInicial implements Screen, InputProcessor {
         // Escribir información
         info.setColor(Color.BLUE);
         info.getData().setScale(1.5f);
-        info.draw(spriteBatch, "Inicialmente aparecerán 3 virus Covid-19, que", 35, 800);
-        info.draw(spriteBatch, "irán infectando a su alrededor cada segundo.", 35, 760);
-        info.draw(spriteBatch, "Deberás mover el desinfectador con las teclas.", 35, 700);
-        info.draw(spriteBatch, "La superfice por donde pasa el desinfectador", 35, 640);
-        info.draw(spriteBatch, "queda desinfectada durante 10 segundos.", 35, 600);
+        info.draw(spriteBatch, "Inicialmente aparecerán 3 virus Covid-19, que", 35, 900);
+        info.draw(spriteBatch, "irán infectando a su alrededor cada segundo.", 35, 860);
+        info.draw(spriteBatch, "Mueve el desinfectador con las teclas (1).", 35, 800);
+        info.draw(spriteBatch, "La superfice por donde pasa el desinfectador", 35, 740);
+        info.draw(spriteBatch, "queda desinfectada durante 10 segundos.", 35, 700);
+        info.draw(spriteBatch, "Pierdes si resultas infectado o si la superficie", 35, 640);
+        info.draw(spriteBatch, "infectada supera el 85%.", 35, 600);
         info.draw(spriteBatch, "Pulsa en la pantalla para pausar o reiniciar.", 35, 540);
         spriteBatch.draw(AssetsXogo.imaxeVirus1, 35, 455, 32, 32);
         info.draw(spriteBatch, "Virus inmaduro. No infecta.", 75, 480);
@@ -66,7 +68,9 @@ public class PantallaInicial implements Screen, InputProcessor {
         info.draw(spriteBatch, "Virus maduro. Infecta en 1 segundo.", 75, 380);
         spriteBatch.draw(AssetsXogo.imaxeDesinfectador, 35, 295, 32, 32);
         info.draw(spriteBatch, "Desinfectador.", 75, 320);
-        info.draw(spriteBatch, "Pulsa para comenzar.", 150, 200);
+        info.draw(spriteBatch, "(1) También lo mueves con las teclas de cursor. ", 35, 260);
+        info.draw(spriteBatch, "(2) También pausas/reanudas pulsando 'P'; ", 35, 220);
+        info.draw(spriteBatch, "Pulsa para comenzar.", 150, 180);
         spriteBatch.draw(AssetsXogo.imaxeLogo, 97, 30, 354,70);
         spriteBatch.end();
     }
@@ -116,6 +120,8 @@ public class PantallaInicial implements Screen, InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
+        // Non importa qué tecla pulsamos
+        xogo.setScreen(new PantallaXogo(this.xogo));
         return false;
     }
 

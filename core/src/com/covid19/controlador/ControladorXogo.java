@@ -12,6 +12,7 @@ public class ControladorXogo {
 
     private int numVirus;
     private boolean infeccion;
+    private int numVirusMaduros;
 
     // Método que crea unha tarefa a executar cada segundo
     // Esta tarefa encárgase chamar ao método para infectar celdas contiguas a virus maduros
@@ -54,6 +55,7 @@ public class ControladorXogo {
             // Repasamos toda a cuadrícula para ver posicións infectables
 
             numVirus = 0;
+            numVirusMaduros = 0;
             infeccion = false;
 
             for (int x=0; x<15; x++) {
@@ -95,8 +97,10 @@ public class ControladorXogo {
                             rematarPartida();
                         }
                         numVirus++;
+                        numVirusMaduros++;
                     } else {
                         numVirus++;
+                        numVirusMaduros++;
                     }
                 }
             }
@@ -104,8 +108,18 @@ public class ControladorXogo {
         // se houbo algunha celda infectada, provocamos son
         if (infeccion) {AssetsXogo.sonInfeccion.play();}
 
+        //Pasamos información da superficie infectada
+        meuMundo.setSuperficieInfectada((float) (numVirusMaduros / 3));   // porcentaxe = numVirusMaduros * 100 / 300
+
         // se xa non quedan virus, rematamos o xogo gañando
-        if (numVirus == 0) {finXogo("G");}
+        if (numVirus == 0) {
+            finXogo("G");
+        } else if (numVirusMaduros >= 255) {
+            // Superficie infectada en 85% ou superior
+            // paramos a infección e rematamos esta partida
+            pararInfeccion();
+            rematarPartida();
+        }
     }
 
     // Método que resta unha vida e comproba se xa non lle quedan vidas
