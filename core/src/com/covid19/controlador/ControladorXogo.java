@@ -109,12 +109,12 @@ public class ControladorXogo {
         if (infeccion) {AssetsXogo.sonInfeccion.play();}
 
         //Pasamos información da superficie infectada
-        meuMundo.setSuperficieInfectada((float) (numVirusMaduros / 3));   // porcentaxe = numVirusMaduros * 100 / 300
+        meuMundo.setSuperficieInfectada((float) (numVirusMaduros * 100 / 375));   // porcentaxe = numVirusMaduros * 100 / 375
 
         // se xa non quedan virus, rematamos o xogo gañando
         if (numVirus == 0) {
             finXogo("G");
-        } else if (numVirusMaduros >= 255) {
+        } else if (meuMundo.getSuperficieInfectada() >= 85f) {
             // Superficie infectada en 85% ou superior
             // paramos a infección e rematamos esta partida
             pararInfeccion();
